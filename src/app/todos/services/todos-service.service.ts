@@ -24,4 +24,30 @@ export class TodosService {
   changeFilter(filterName: FilterEnum): void {
     this.filterSignal.set(filterName);
   }
+
+  updateTodo(id: string, description: string): void {
+    this.todosSignal.update((todosList) => 
+      todosList.map((todo) =>
+        (todo.id === id ? { ...todo, description } : todo)
+      )
+    )
+  } 
+
+  removeTodo(id: string): void {
+    this.todosSignal.update((todosList) =>
+      todosList.filter((todo) => todo.id !== id)
+    );
+  }
+
+  toggleTodo(id: string): void {
+    this.todosSignal.update((todosList) =>
+      todosList.map((todo) => (todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo))
+    )
+  }
+
+  toggleAllTodos(isCompleted: boolean): void {
+    this.todosSignal.update((todosList) =>
+      todosList.map((todo) => ({ ...todo, isCompleted: isCompleted }))
+    )
+  }
 }

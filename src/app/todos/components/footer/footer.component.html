@@ -1,4 +1,8 @@
-<footer class="footer">
+<footer class="footer" [ngClass]="{ hidden: noTodos()}">
+    <span class="todo-count">
+        <strong> {{(activeCount())}}</strong>
+        {{ itemsText() }}
+    </span>
     <ul class="filters">
         <li>
             <a 
